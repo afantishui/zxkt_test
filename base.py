@@ -1,16 +1,16 @@
 # -*- coding:utf-8 -*- 
 import urllib.request
-from selen import *
 import subprocess
 import time
 import os
-import win32api, win32gui,win32con
+import win32api, win32gui,win32con,win32com.client
 
 # 下载进度初始值
 downloaded = '0'
 class Base():
 	"""docstring for Base"""
-	
+	def __init__(self):
+		self.shell = win32com.client.Dispatch("WScript.Shell")
 
 	# 截取软件名
 	def get_name(self,url):
@@ -56,28 +56,45 @@ class Base():
 
 
 	# 安装指定目录的软件
-	def install(self,path,softname):
+	def install(self,path,softname,classname):
 		# 打开安装文件
+		print(path+softname)
 		win32api.ShellExecute(0, 'open', path+softname, '','',1)
-		self.wait(2)
-		self.send_key('enter')
-		self.wait(2)
-		self.send_key('enter')
-		self.wait(20)
-		self.send_key('enter')
+		self.wait(3)
+		# 获取安装窗口句柄
+		hwnd = self.findwindow(classname)
+		# # 发送一个按键
+		# self.shell.SendKeys('%')
+		# # 窗口置顶
+		# win32gui.SetForegroundWindow(hwnd) 
+		if hwnd > 0 :
+			self.wait(2)
+			self.send_key('enter')
+			self.wait(2)
+			self.send_key('enter')
+			self.wait(10)
+			self.send_key('enter')
+			self.wait(2)
+			try:
+				hwnd = self.findwindow(classname)
+				print("关闭安装窗口后句柄")
+			except:
+				print('安装完成')
+		else:
+			print('没有启动安装程序')
 
 
 	# 卸载指定目录的软件
 	def uninstall(self,path,softname):
 		pass
 
-	def findwindow(self,classname,titlename):
-		#获取句柄
-		hwnd = win32gui.FindWindow(classname, titlename)
+	def findwindow(self,classname):
+		#获取句柄,类名与标题名,不填则用None
+		hwnd = win32gui.FindWindow(classname,None)
 		#获取窗口左上角和右下角坐标
 		left, top, right, bottom = win32gui.GetWindowRect(hwnd)
 		print(hwnd, left, top, right, bottom)
-		return hwnd, left, top, right, bottom
+		return hwnd
 	# 删除指定目录的软件
 	def delete(self,path):
 		pass
@@ -104,7 +121,7 @@ class Base():
 
 	# 输入文本
 	def text(self,msg):
-		
+		pass
 		
 	# 等待
 	def wait(self,s):
@@ -116,6 +133,8 @@ class Base():
 		if key == 'enter':
 			win32api.keybd_event(13,0,0,0)
 			win32api.keybd_event(13,0,win32con.KEYEVENTF_KEYUP,0)
+		elif key == 'ENTER' or '~':
+			self.shell.SendKeys('ENTER')
 
 	def get_mouse_pos():
 		win32api.GetCursorPos()
@@ -127,10 +146,10 @@ if __name__ == '__main__':
 	a = Base()
 	path = "E:\\zxktsoft\\"
 	softname = 'nsb-teacher-1.0.3.0-dev.exe'
-	classname = 'Qt5QWindowIcon'
-	title = '牛师帮教师'
-	# a.install(path,softname)
-	a.findwindow(classname,title)
+	classname = 'TWizardForm'
+	
+	a.install(path,softname,classname)
+	# a.findwindow(classname,None)
 	# a.download('http://niubo.oss-cn-shenzhen.aliyuncs.com/live/client/nsb-teacher-1.0.3.0-dev.exe','E:\\zxkt\\')
 # $client.DownloadFile('http://niubo.oss-cn-shenzhen.aliyuncs.com/live/client/nsb-teacher-1.0.3.0-dev.exe','E:\\zxkt\\nsb-teacher-1.0.3.0-dev.exe')
 # 'powershell "($client = new-object System.Net.WebClient) -and 
