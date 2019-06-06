@@ -16,4 +16,5 @@ print(path1+filename)
 # install_teacher(path1,filename,c1)
 # 3.登录
 login(c2,pos)
+# 设备检测
 

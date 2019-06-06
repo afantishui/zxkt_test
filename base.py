@@ -43,7 +43,7 @@ class Base():
 		stime = time.time() # 记录开始时间
 		response = urllib.request.urlretrieve(url, path + filename, self.download_listener)
 		etime = time.time()-stime # 记录结束时间
-		print('用时:%s'%etime)
+		print('下载完成,用时:%s'%etime)
 
 	# 下载监听进度
 	def download_listener(self,a, b, c):

@@ -9,7 +9,8 @@ def download_client(url,path,filename):
 	
 	else:
 		print('找不到文件,开始下载%s'%filename)
-	app.download(url, path,filename)
+		app.download(url, path,filename)
+	app.wait(3)
 
 
 # 安装客户端
@@ -58,22 +59,27 @@ def uninstall(path,softname):
 		else:
 			print('没有启动安装程序')
 
-
+# 登录教师,账号密码续作参数化
 def login(classname,pos):
-	hwnd = app.findwindow(classname)
-	# 输入账号
-	app.click(pos[0],'l')
-	app.wait(0.5)
-	app.text_en(b'afanti',hwnd)
-	app.wait(0.5)
-	# 输入密码
-	app.send_key('Enter')
-	app.wait(0.5)
-	app.text_en(b'123456',hwnd)
-	app.wait(0.5)
-	# 点确定
-	app.send_key('Enter')
-	print('ok')
+	a = True
+	while a:
+	
+		a = False
+		hwnd = app.findwindow(classname)
+		# 输入账号
+		app.click(pos[0],'l')
+		app.wait(0.5)
+		app.text_en(b'afanti',hwnd)
+		app.wait(0.5)
+		# 输入密码
+		app.send_key('Enter')
+		app.wait(0.5)
+		app.text_en(b'123456',hwnd)
+		app.wait(0.5)
+		# 点确定
+		app.send_key('Enter')
+		print('ok')
+
 # 调试
 def test():
 	app.send_key('Enter')
