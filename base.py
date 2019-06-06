@@ -4,6 +4,21 @@ import subprocess
 import time
 import os
 import win32api, win32gui,win32con,win32com.client
+# 键码
+keycode = { 
+		'BackSpace':"8", "Tab":"9", "Clear":"12", "Enter":"13", "Shift_L" : "16",
+		"Control_L":"17", "Alt_L":"18", "Pause":"19", "Caps_Lock":"20", "Escape":"27",
+		"space":"32", "Prior":"33", "Next":"34", "End":"35", "Home":"36",
+		"Left":"37", "Up":"38", "Right":"39", "Down":"40",
+		"Select":"41", "Print":"42", "Execute":"43", "Insert":"45", "Delete":"46", "Help":"47",
+		"a":"65", "b":"66", "c":"67", "d":"68", "e":"69", "f":"70", "g":"71", "h":"72", "i":"73",
+		"j":"74", "k":"75", "l":"76", "m":"77", "n":"78", "o":"79", "p":"80", "q":"81", "r":"82",
+		"s":"83", "t":"84", "u":"85", "v":"86", "w":"87", "x":"88", "y":"89", "z":"90",
+		"0":"96", "1":"97", "2":"98", "3":"99", "4":"100", "5":"101", "6":"102", "7":"103", "8":"104", "9":"105",
+		"*":"106", "+":"107", "-":"109", ".":"110", "/":"111",
+		"F1":"112", "F2":"113", "F3":"114", "F4":"115", "F5":"116", "F6":"117",
+		"F7":"118", "F8":"119", "F9":"120", "F10":"121", "F11":"122", "F12":"123",
+}
 
 # 下载进度初始值
 downloaded = '0'
@@ -55,38 +70,21 @@ class Base():
 		return flag
 
 
-	# 安装指定目录的软件
-	def install(self,path,softname,classname):
+	# 启动指定目录的软件
+	def launch(self,path,softname):
 		# 打开安装文件
-		print(path+softname)
+		print("打开目录:%s"%(path+softname))
 		win32api.ShellExecute(0, 'open', path+softname, '','',1)
-		self.wait(3)
-		# 获取安装窗口句柄
-		hwnd = self.findwindow(classname)
-		# # 发送一个按键
-		# self.shell.SendKeys('%')
-		# # 窗口置顶
-		# win32gui.SetForegroundWindow(hwnd) 
-		if hwnd > 0 :
-			self.wait(2)
-			self.send_key('enter')
-			self.wait(2)
-			self.send_key('enter')
-			self.wait(10)
-			self.send_key('enter')
-			self.wait(2)
-			try:
-				hwnd = self.findwindow(classname)
-				print("关闭安装窗口后句柄")
-			except:
-				print('安装完成')
-		else:
-			print('没有启动安装程序')
+		self.wait(1)
+		
 
 
 	# 卸载指定目录的软件
-	def uninstall(self,path,softname):
-		pass
+	# def uninstall(self,path,softname):
+	# 	softname = 'unins000.exe'
+	# 	win32api.ShellExecute(0, 'open', path+softname, '','',1)
+	# 	self.wait(0.5)
+
 
 	def findwindow(self,classname):
 		#获取句柄,类名与标题名,不填则用None
@@ -119,9 +117,10 @@ class Base():
 			win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP | win32con.MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0)
 
 
-	# 输入文本
-	def text(self,msg):
-		pass
+	# 输入文本,采用字节符
+	def text_en(self,msg,hwnd):
+		 for x in msg:
+		 	win32gui.SendMessage(hwnd,win32con.WM_CHAR,x,0)
 		
 	# 等待
 	def wait(self,s):
@@ -130,11 +129,11 @@ class Base():
 	# 按键
 	def send_key(self,key):
 		# 回车键
-		if key == 'enter':
-			win32api.keybd_event(13,0,0,0)
-			win32api.keybd_event(13,0,win32con.KEYEVENTF_KEYUP,0)
-		elif key == 'ENTER' or '~':
-			self.shell.SendKeys('ENTER')
+		if keycode[key]:
+			win32api.keybd_event(int(keycode[key]),0,0,0)
+			win32api.keybd_event(int(keycode[key]),0,win32con.KEYEVENTF_KEYUP,0)
+		else :
+			print("没有对应的键码")
 
 	def get_mouse_pos():
 		win32api.GetCursorPos()
