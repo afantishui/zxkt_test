@@ -1,8 +1,6 @@
 # -*- coding:utf-8 -*- 
 from base import Base
-
 app = Base()
-
 
 # 下载客户端
 def download_client(url,path,filename):
@@ -61,20 +59,21 @@ def uninstall(path,softname):
 			print('没有启动安装程序')
 
 
-def login(classname):
+def login(classname,pos):
 	hwnd = app.findwindow(classname)
 	# 输入账号
-	app.click(x,y,l)
+	app.click(pos[0],'l')
 	app.wait(0.5)
-	app.text_en()
+	app.text_en(b'afanti',hwnd)
 	app.wait(0.5)
 	# 输入密码
-	app.click(x,y,l)
+	app.send_key('Enter')
 	app.wait(0.5)
-	app.text_en()
+	app.text_en(b'123456',hwnd)
 	app.wait(0.5)
 	# 点确定
-	app.click(x,y,l)
+	app.send_key('Enter')
+	print('ok')
 # 调试
 def test():
 	app.send_key('Enter')

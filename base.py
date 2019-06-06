@@ -106,9 +106,10 @@ class Base():
 		pass
 
 	# 点击
-	def click(self,x,y,lr):
+	def click(self,p,lr):
+		p = p.split(',')
 		#鼠标定位到(x,y)
-		win32api.SetCursorPos([x,y])
+		win32api.SetCursorPos((int(p[0]),int(p[1])))
 		# l 左击 r 右击
 		if lr == 'l':	
 			#执行左单键击，若需要双击则延时几毫秒再点击一次即可
@@ -141,13 +142,13 @@ class Base():
 
 
 if __name__ == '__main__':
-
-	a = Base()
-	path = "E:\\zxktsoft\\"
-	softname = 'nsb-teacher-1.0.3.0-dev.exe'
-	classname = 'TWizardForm'
+	pass
+	# a = Base()
+	# path = "E:\\zxktsoft\\"
+	# softname = 'nsb-teacher-1.0.3.0-dev.exe'
+	# classname = 'TWizardForm'
 	
-	a.install(path,softname,classname)
+	# a.install(path,softname,classname)
 	# a.findwindow(classname,None)
 	# a.download('http://niubo.oss-cn-shenzhen.aliyuncs.com/live/client/nsb-teacher-1.0.3.0-dev.exe','E:\\zxkt\\')
 # $client.DownloadFile('http://niubo.oss-cn-shenzhen.aliyuncs.com/live/client/nsb-teacher-1.0.3.0-dev.exe','E:\\zxkt\\nsb-teacher-1.0.3.0-dev.exe')

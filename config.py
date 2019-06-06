@@ -1,16 +1,12 @@
 # -*- coding:utf-8 -*-  
 import configparser
+cf = configparser.ConfigParser()
+cf.read("config.ini",encoding='UTF-8')
 
 def get_path_conf():
-	cf = configparser.ConfigParser()
-	cf.read("config.ini",encoding='UTF-8')
 	path = cf.get("path", "dl_path")
 	path1 = cf.get("path", "d2_path")
-	
-	c1 = cf.get("classname","c1")
-	c2 = cf.get("classname","c2")
-	c3 = cf.get("classname","c3")
-	return path, path1, url, url1,c1, c2, c3
+	return path, path1
 
 def get_url_conf():
 	url = cf.get("url", "url1")
@@ -18,6 +14,15 @@ def get_url_conf():
 	return url, url1
 
 def get_classname_conf():
-c1 = cf.get("classname","c1")
+	c1 = cf.get("classname","c1")
 	c2 = cf.get("classname","c2")
 	c3 = cf.get("classname","c3")
+	return c1, c2, c3
+
+def get_position_conf():
+	x1 = cf.get("position","x1")
+	x2 = cf.get("position","x2")
+	x3 = cf.get("position","x3")
+	pos = [x1, x2, x3]
+	return pos
+
