@@ -7,7 +7,7 @@ import win32api, win32gui,win32con,win32com.client
 # 键码
 keycode = { 
 		'BackSpace':"8", "Tab":"9", "Clear":"12", "Enter":"13", "Shift_L" : "16",
-		"Control_L":"17", "Alt_L":"18", "Pause":"19", "Caps_Lock":"20", "Escape":"27",
+		"Ctrl":"17", "Alt_L":"18", "Pause":"19", "Caps_Lock":"20", "Esc":"27",
 		"space":"32", "Prior":"33", "Next":"34", "End":"35", "Home":"36",
 		"Left":"37", "Up":"38", "Right":"39", "Down":"40",
 		"Select":"41", "Print":"42", "Execute":"43", "Insert":"45", "Delete":"46", "Help":"47",
@@ -129,12 +129,26 @@ class Base():
 
 	# 按键
 	def send_key(self,key):
-		# 回车键
+
 		if keycode[key]:
 			win32api.keybd_event(int(keycode[key]),0,0,0)
 			win32api.keybd_event(int(keycode[key]),0,win32con.KEYEVENTF_KEYUP,0)
 		else :
 			print("没有对应的键码")
+
+	# 组合键  **kwargs 打包关键字参数成dict给函数体调用
+	def com_key(*args):
+		if len(args) <= 3:
+			win32api.keybd_event(int(keycode[args[1]]),0,0,0)
+			win32api.keybd_event(int(keycode[args[2]]),0,0,0)
+			win32api.keybd_event(int(keycode[args[1]]),0,win32con.KEYEVENTF_KEYUP,0)
+			win32api.keybd_event(int(keycode[args[2]]),0,win32con.KEYEVENTF_KEYUP,0)
+			print('按下了%s+%s'%(args[1],args[2]))	
+		# if keycode[key]:
+
+		# else :
+		# 	print("没有对应的键码")
+
 
 	def get_mouse_pos():
 		win32api.GetCursorPos()
@@ -142,8 +156,15 @@ class Base():
 
 
 if __name__ == '__main__':
-	pass
-	# a = Base()
+	
+	a = Base()
+	# a.com_key('CtrlCtrl','v')
+	hwnd = a.findwindow('TWizardForm')
+
+	a.click('980,510','l')
+	a.wait(2)
+	a.text_en(b'123',hwnd)
+
 	# path = "E:\\zxktsoft\\"
 	# softname = 'nsb-teacher-1.0.3.0-dev.exe'
 	# classname = 'TWizardForm'

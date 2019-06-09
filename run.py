@@ -13,8 +13,8 @@ print(path1+filename)
 # # 1.下载文件
 # download_client(url1, path1,filename)
 # 2.安装文件
-# install_teacher(path1,filename,c1)
+install_teacher(path1,filename,c1, path)
 # 3.登录
-login(c2,pos)
+# login(c2,pos)
 # 设备检测
 

@@ -14,7 +14,7 @@ def download_client(url,path,filename):
 
 
 # 安装客户端
-def install_teacher(path,softname,classname):
+def install_teacher(path,softname,classname,path1):
 		# 启动安装文件
 		app.launch(path,softname)
 		app.wait(3)
@@ -22,13 +22,17 @@ def install_teacher(path,softname,classname):
 		hwnd = app.findwindow(classname)
 
 		if hwnd > 0 :
-			app.wait(2)
+			app.wait(0.5)
+			app.send_key('BackSpace')
+			app.wait(1)
+			app.text_en(b'D:\\Program Files (x86)\\NiushibangPCT',hwnd)
+			app.wait(1)
 			app.send_key('Enter')
-			app.wait(2)
-			app.send_key('Enter')
-			app.wait(10)
-			app.send_key('Enter')
-			app.wait(2)
+			# app.wait(2)
+			# app.send_key('Enter')
+			# app.wait(10)
+			# app.send_key('Enter')
+			# app.wait(2)
 			try:
 				hwnd = app.findwindow(classname)
 				print("关闭安装窗口后句柄")
@@ -67,7 +71,7 @@ def login(classname,pos):
 		a = False
 		hwnd = app.findwindow(classname)
 		# 输入账号
-		app.click(pos[0],'l')
+		app.click(pos[1],'l')
 		app.wait(0.5)
 		app.text_en(b'afanti',hwnd)
 		app.wait(0.5)

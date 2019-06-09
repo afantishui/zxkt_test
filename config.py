@@ -23,6 +23,7 @@ def get_position_conf():
 	x1 = cf.get("position","x1")
 	x2 = cf.get("position","x2")
 	x3 = cf.get("position","x3")
-	pos = [x1, x2, x3]
+	x4 = cf.get("position","x4")
+	pos = [x1, x2, x3, x4]
 	return pos
 
