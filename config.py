@@ -27,3 +27,9 @@ def get_position_conf():
 	pos = [x1, x2, x3, x4]
 	return pos
 
+def ge_title_conf():
+	t1 = cf.get('title', 't1')
+	t2 = cf.get('title', 't2')
+	t3 = cf.get('title', 't3')
+	t4 = cf.get('title', 't4')
+	return t1, t2, t3, t4

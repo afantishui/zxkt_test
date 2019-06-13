@@ -73,16 +73,33 @@ def login(classname,pos):
 		# 输入账号
 		app.click(pos[1],'l')
 		app.wait(0.5)
-		app.text_en(b'afanti',hwnd)
+		app.text_en(b'13432688452',hwnd)
 		app.wait(0.5)
 		# 输入密码
 		app.send_key('Enter')
 		app.wait(0.5)
-		app.text_en(b'123456',hwnd)
+		app.text_en(b'13432688452',hwnd)
 		app.wait(0.5)
 		# 点确定
 		app.send_key('Enter')
 		print('ok')
+
+# 设备检测
+def s_device(classname,title):
+	hwnd_d = app.findwindow1(classname,title)
+	if hwnd_d > 0:
+		print('设备检测窗口正常打开')
+		# 设备检测窗口关闭按钮坐标
+		app.click(1340,290)
+	else:
+		print('没有检测到设备检测窗口')
+
+# 课表
+def s_course():
+	pass
+# 我的
+def s_myself():
+	pass
 
 # 调试
 def test():

@@ -85,7 +85,7 @@ class Base():
 	# 	win32api.ShellExecute(0, 'open', path+softname, '','',1)
 	# 	self.wait(0.5)
 
-
+	# 根据类名查找窗口句柄
 	def findwindow(self,classname):
 		#获取句柄,类名与标题名,不填则用None
 		hwnd = win32gui.FindWindow(classname,None)
@@ -93,6 +93,16 @@ class Base():
 		left, top, right, bottom = win32gui.GetWindowRect(hwnd)
 		print(hwnd, left, top, right, bottom)
 		return hwnd
+		
+	# 根据类名、标题查找窗口句柄
+	def findwindow1(self,classname,title):
+		#获取句柄,类名与标题名,不填则用None
+		hwnd = win32gui.FindWindow(classname,title)
+		#获取窗口左上角和右下角坐标
+		left, top, right, bottom = win32gui.GetWindowRect(hwnd)
+		print(hwnd, left, top, right, bottom)
+		return hwnd
+
 	# 删除指定目录的软件
 	def delete(self,path):
 		pass
