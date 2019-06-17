@@ -17,4 +17,3 @@ print(path1+filename)
 # 3.登录
 login(c2,pos)
 # 设备检测
-
