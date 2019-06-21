@@ -85,6 +85,7 @@ def login(classname,pos,name,psd):
 	while a:
 		a = False
 		hwnd = app.findwindow(classname)
+		# 账号识别,没有账号则输入,有则直接登录
 		s = dm.Ocr(827,527,955,556,"903a00-3a003a|003a90-b6ffff|000000-000000",0.9)
 		if s is None:
 			print('没有识别到账号,输入账号密码')
@@ -101,7 +102,7 @@ def login(classname,pos,name,psd):
 			# 点确定
 			app.send_key('Enter')
 		else:
-			print('识别到:'+s,'直接登录')
+			print('识别到账号:'+s,'直接登录')
 			app.wait(0.5)
 			app.click(pos[0],'l')
 			
