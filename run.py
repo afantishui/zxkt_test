@@ -7,13 +7,17 @@ from config import *
 path, path1 = get_path_conf()
 url, url1 = get_url_conf()
 c1, c2, c3 = get_classname_conf()
+t1, t2, t3, t4 = get_title_conf()
 pos = get_position_conf()
 filename = app.get_name(url)
 print(path1+filename)
 # # 1.下载文件
 # download_client(url1, path1,filename)
 # 2.安装文件
-# install_teacher(path1,filename,c1)
+# install_teacher(path1,filename,c1, path)
+start_app()
 # 3.登录
 login(c2,pos)
 # 设备检测
+s_device(c2, t4)
+
