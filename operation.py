@@ -118,7 +118,10 @@ def s_device(classname,title):
 		app.click(1340,290)
 	else:
 		print('没有检测到设备检测窗口')
-
+		
+def wait(s):
+	app.wait(s)
+	
 # 课表
 def s_course():
 	pass
